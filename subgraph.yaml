@@ -1,0 +1,26 @@
+specVersion: 0.0.2
+description: Reserve Rights token
+# repository: 
+schema:
+    file: ./schema.graphql
+dataSources:
+    - kind: ethereum/contract
+      name: ReserveRightsToken
+      network: mainnet
+      source:
+          address: "0x8762db106b2c2a0bccb3a80d1ed41273552616e8"
+          abi: ReserveRightsToken
+          startBlock: 7776087
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.4
+          language: wasm/assemblyscript
+          entities:
+              - Token
+          abis:
+              - name: ReserveRightsToken
+                file: ./abis/ReserveRightsToken.json
+          eventHandlers:
+              - event: Transfer(indexed address,indexed address,uint256)
+                handler: handleTransfer
+          file: ./src/mapping.ts
